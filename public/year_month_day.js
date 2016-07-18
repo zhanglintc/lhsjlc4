@@ -16,9 +16,9 @@ function DateSelector(selYear, selMonth, selDay) {
         this.selMonth.addEventListener("change", DateSelector.Onchange, false);
     }
     if (arguments.length == 4) // 如果传入参数个数为4，最后一个参数必须为Date对象 
-    this.InitSelector(arguments[3].getFullYear(), arguments[3].getMonth() + 1, arguments[3].getDate());
+        this.InitSelector(arguments[3].getFullYear(), arguments[3].getMonth() + 1, arguments[3].getDate());
     else if (arguments.length == 6) // 如果传入参数个数为6，最后三个参数必须为初始的年月日数值 
-    this.InitSelector(arguments[3], arguments[4], arguments[5]);
+        this.InitSelector(arguments[3], arguments[4], arguments[5]);
     else // 默认使用当前日期 
     {
         var dt = new Date();
