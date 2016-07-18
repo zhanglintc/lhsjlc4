@@ -89,7 +89,19 @@ DateSelector.prototype.InitDaySelect = function() {
 // 参数e为event对象
 DateSelector.Onchange = function(e) {
     var selector = window.document.all != null ? e.srcElement: e.target;
+    var date = selector.Group.selDay.value;
     selector.Group.InitDaySelect();
+
+    var year = selector.Group.selYear.value;
+    var month = selector.Group.selMonth.value;
+    var daysInMonth = (new Date(year, month, 0)).getDate();
+
+    if(date < daysInMonth) {
+        selector.Group.selDay.value = date;
+    }
+    else {
+        selector.Group.selDay.value = daysInMonth;
+    }
 }
 // 根据参数初始化下拉菜单选项
 DateSelector.prototype.InitSelector = function(year, month, day) {
