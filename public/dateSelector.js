@@ -6,6 +6,12 @@ function DateSelector(selYear, selMonth, selDate) {
     this.selDate = selDate;
     this.selYear.Group = this;
     this.selMonth.Group = this;
+
+    dt = new Date();
+    this.today_year = dt.getFullYear();
+    this.today_month = dt.getMonth() + 1;
+    this.today_date = dt.getDate();
+
     // 给年份、月份下拉菜单添加处理onchange事件的函数
     if (window.document.all != null) // IE
     {
@@ -16,20 +22,24 @@ function DateSelector(selYear, selMonth, selDate) {
         this.selYear.addEventListener("change", DateSelector.Onchange, false);
         this.selMonth.addEventListener("change", DateSelector.Onchange, false);
     }
-    if (arguments.length == 4) // 如果传入参数个数为4，最后一个参数必须为Date对象
+
+    // 如果传入参数个数为4，最后一个参数必须为Date对象
+    if (arguments.length == 4) {
         this.InitSelector(arguments[3].getFullYear(), arguments[3].getMonth() + 1, arguments[3].getDate());
-    else if (arguments.length == 6) // 如果传入参数个数为6，最后三个参数必须为初始的年月日数值
+    }
+    // 如果传入参数个数为6，最后三个参数必须为初始的年月日数值
+    else if (arguments.length == 6) {
         this.InitSelector(arguments[3], arguments[4], arguments[5]);
-    else // 默认使用当前日期
-    {
-        var dt = new Date();
-        this.InitSelector(dt.getFullYear(), dt.getMonth() + 1, dt.getDate());
+    }
+    // 默认使用当前日期
+    else {
+        this.InitSelector(this.today_year, this.today_month, this.today_date);
     }
 }
 // 增加一个最大年份的属性
 DateSelector.prototype.MinYear = (new Date()).getFullYear();
 // 增加一个最大年份的属性
-DateSelector.prototype.MaxYear = (new Date()).getFullYear() + 5;
+DateSelector.prototype.MaxYear = (new Date()).getFullYear() + 2;
 // 初始化年份
 DateSelector.prototype.InitYearSelect = function() {
     // 循环添加OPION元素到年份select对象中
@@ -47,7 +57,7 @@ DateSelector.prototype.InitYearSelect = function() {
 // 初始化月份
 DateSelector.prototype.InitMonthSelect = function() {
     // 循环添加OPION元素到月份select对象中
-    for (var i = 1; i < 13; i++) {
+    for (var i = 1; i <= 12; i++) {
         // 新建一个OPTION对象
         var op = window.document.createElement("OPTION");
         // 设置OPTION对象的值
@@ -113,10 +123,10 @@ DateSelector.prototype.InitSelector = function(year, month, date) {
     this.InitYearSelect();
     this.InitMonthSelect();
     // 设置年、月初始值
-    this.selYear.selectedIndex = this.MaxYear - year;
-    this.selMonth.selectedIndex = month - 1;
+    this.selYear.value = year;
+    this.selMonth.value = month;
     // 初始化天数
     this.InitDateSelect();
     // 设置天数初始值
-    this.selDate.selectedIndex = date - 1;
+    this.selDate.value = date;
 }
