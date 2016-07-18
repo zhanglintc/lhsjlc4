@@ -2,29 +2,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!-- 可能是适配移动端用的 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+
     <script type="text/javascript" src="year_month_day.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Publish</title>
   </head>
 
   <body>
-    <select id="selYear"></select>
-    <select id="selMonth"></select>
-    <select id="selDay"></select>
-    <script type="text/javascript">
-      var selYear = window.document.getElementById("selYear");
-      var selMonth = window.document.getElementById("selMonth");
-      var selDay = window.document.getElementById("selDay");
+    <div id="center_board">
+      开始:
+      <select id="selYear_s"></select>
+      <select id="selMonth_s"></select>
+      <select id="selDate_s"></select>
+      <script type="text/javascript">
+        var selYear_s = window.document.getElementById("selYear_s");
+        var selMonth_s = window.document.getElementById("selMonth_s");
+        var selDate_s = window.document.getElementById("selDate_s");
+        var myDate = new Date();
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth() + 1;
+        var date = myDate.getDate();
+        new DateSelector(selYear_s, selMonth_s, selDate_s, year, month, date);
+      </script>
 
-      // 新建一个DateSelector类的实例，将三个select对象传进去
-      var myDate = new Date();
-      var year = myDate.getFullYear();
-      var month = myDate.getMonth() + 1;
-      var date = myDate.getDate();
-      new DateSelector(selYear, selMonth, selDay, year, month, date);
-
-      // 也可以试试下边的代码
-      // var dt = new Date(2004, 1, 29);
-      // new DateSelector(selYear, selMonth ,selDay, dt);
-    </script>
+      <br/>
+      结束:
+      <select id="selYear_e"></select>
+      <select id="selMonth_e"></select>
+      <select id="selDate_e"></select>
+      <script type="text/javascript">
+        var selYear_e = window.document.getElementById("selYear_e");
+        var selMonth_e = window.document.getElementById("selMonth_e");
+        var selDate_e = window.document.getElementById("selDate_e");
+        var myDate = new Date();
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth() + 1;
+        var date = myDate.getDate();
+        new DateSelector(selYear_e, selMonth_e, selDate_e, year, month, date);
+      </script>
+    </div>
   </body>
 </html>
