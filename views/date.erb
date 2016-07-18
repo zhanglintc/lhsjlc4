@@ -12,13 +12,13 @@
 
     <script type="text/javascript" src="year_month_day.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Publish</title>
+    <title>停车位发布页面</title>
   </head>
 
   <body>
     <div id="center_board">
-      <h3>车位发布</h1>
-      开始日期:
+      <h3>停车位发布</h1>
+      空闲开始日期:
       <select id="selYear_s"></select>
       <select id="selMonth_s"></select>
       <select id="selDate_s"></select>
@@ -34,7 +34,7 @@
       </script>
 
       <br/>
-      结束日期:
+      空闲结束日期:
       <select id="selYear_e"></select>
       <select id="selMonth_e"></select>
       <select id="selDate_e"></select>
@@ -52,6 +52,33 @@
       <div id="btn_board">
         <button id="submit">提交</button>
         <button id="cancel">取消</button>
+        <script type="text/javascript">
+          var post = function(url, params) {
+            var tmp = document.createElement("form");
+            tmp.action = url;
+            tmp.method = "post";
+            tmp.style.display = "none";
+            for(var x in params) {
+              var opt = document.createElement("input");
+              opt.name = x;
+              opt.value = params[x];
+              tmp.appendChild(opt);
+            }
+            document.body.appendChild(tmp);
+            tmp.submit();
+            return tmp;
+          }
+
+          var submit = window.document.getElementById("submit");
+          submit.onclick = function() {
+            post("/publish", {year: '123'});
+          }
+
+          var cancel = window.document.getElementById("cancel");
+          cancel.onclick = function() {
+            alert("取消");
+          }
+        </script>
       </div>
     </div>
   </body>
