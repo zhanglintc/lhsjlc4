@@ -26,9 +26,9 @@ function DateSelector(selYear, selMonth, selDay) {
     }
 }
 // 增加一个最大年份的属性 
-DateSelector.prototype.MinYear = 1900;
+DateSelector.prototype.MinYear = (new Date()).getFullYear();
 // 增加一个最大年份的属性 
-DateSelector.prototype.MaxYear = (new Date()).getFullYear();
+DateSelector.prototype.MaxYear = (new Date()).getFullYear() + 5;
 // 初始化年份 
 DateSelector.prototype.InitYearSelect = function() {
     // 循环添加OPION元素到年份select对象中 
