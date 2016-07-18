@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
-<title>如何实现一个日期下拉菜单</title> 
+<title>Publish</title> 
 <script type="text/javascript" src="year_month_day.js"></script>
 </head> 
 <body> 
@@ -14,7 +14,11 @@ var selYear = window.document.getElementById("selYear");
 var selMonth = window.document.getElementById("selMonth"); 
 var selDay = window.document.getElementById("selDay"); 
 // 新建一个DateSelector类的实例，将三个select对象传进去 
-new DateSelector(selYear, selMonth, selDay, 2004, 2, 29); 
+var myDate = new Date();
+var year = myDate.getFullYear();
+var month = myDate.getMonth() + 1;
+var date = myDate.getDate();
+new DateSelector(selYear, selMonth, selDay, year, month, date); 
 // 也可以试试下边的代码 
 // var dt = new Date(2004, 1, 29); 
 // new DateSelector(selYear, selMonth ,selDay, dt); 
