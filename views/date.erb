@@ -17,7 +17,8 @@
 
   <body>
     <div id="center_board">
-      开始:
+      <h3>车位发布</h1>
+      开始日期:
       <select id="selYear_s"></select>
       <select id="selMonth_s"></select>
       <select id="selDate_s"></select>
@@ -33,7 +34,7 @@
       </script>
 
       <br/>
-      结束:
+      结束日期:
       <select id="selYear_e"></select>
       <select id="selMonth_e"></select>
       <select id="selDate_e"></select>
@@ -47,6 +48,11 @@
         var date = myDate.getDate();
         new DateSelector(selYear_e, selMonth_e, selDate_e, year, month, date);
       </script>
+
+      <div id="btn_board">
+        <button id="submit">提交</button>
+        <button id="cancel">取消</button>
+      </div>
     </div>
   </body>
 </html>

@@ -5,3 +5,7 @@ body {
     width: 300px;
     margin: 0px auto;
 }
+
+#btn_board {
+    margin-top: 20px;
+}
