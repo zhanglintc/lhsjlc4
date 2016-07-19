@@ -32,9 +32,9 @@ function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, s
         this.selMonth_s.attachEvent("onchange", DateSelector.Onchange);
         this.selDate_s.attachEvent("onchange", DateSelector.Onchange);
 
-        this.selYear_d.attachEvent("onchange", DateSelector.Onchange);
-        this.selMonth_d.attachEvent("onchange", DateSelector.Onchange);
-        this.selDate_d.attachEvent("onchange", DateSelector.Onchange);
+        this.selYear_e.attachEvent("onchange", DateSelector.Onchange);
+        this.selMonth_e.attachEvent("onchange", DateSelector.Onchange);
+        this.selDate_e.attachEvent("onchange", DateSelector.Onchange);
     }
     // Firefox
     else {
