@@ -13,12 +13,13 @@ function DateSelector(selYear, selMonth, selDate) {
     this.today_date = dt.getDate();
 
     // 给年份、月份下拉菜单添加处理onchange事件的函数
-    if (window.document.all != null) // IE
-    {
+    // IE
+    if (window.document.all != null) {
         this.selYear.attachEvent("onchange", DateSelector.Onchange);
         this.selMonth.attachEvent("onchange", DateSelector.Onchange);
-    } else // Firefox
-    {
+    }
+    // Firefox
+    else {
         this.selYear.addEventListener("change", DateSelector.Onchange, false);
         this.selMonth.addEventListener("change", DateSelector.Onchange, false);
     }
