@@ -10,34 +10,43 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
 
+    <link rel="stylesheet" type="text/css" href="style.css">
+
     <script type="text/javascript" src="dateSelector.js"></script>
     <script type="text/javascript" src="utils.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+
     <title>停车位发布</title>
   </head>
 
   <body>
     <div id="center_board">
-      <h3>停车位发布</h3>
-      空闲开始日期:
-      <select id="selYear_s"></select>
-      <select id="selMonth_s"></select>
-      <select id="selDate_s"></select>
+      <h2>停车位发布</h2>
 
-      <br/>
-      空闲结束日期:
-      <select id="selYear_e"></select>
-      <select id="selMonth_e"></select>
-      <select id="selDate_e"></select>
+      <div class="line">
+        空闲开始日期:
+        <select id="selYear_s"></select>
+        <select id="selMonth_s"></select>
+        <select id="selDate_s"></select>
+      </div>
 
-      <br/>
-      空闲车位编号:
-      <input id="parking_deck" type="text">
+      <div class="line">
+        空闲结束日期:
+        <select id="selYear_e"></select>
+        <select id="selMonth_e"></select>
+        <select id="selDate_e"></select>
+      </div>
+
+      <div class="line">
+        空闲车位编号:
+        <input id="parking_deck" type="text">
+      </div>
 
       <div id="btn_board">
         <button id="submit">提交</button>
         <button id="cancel">取消</button>
       </div>
+
+      <div id="copyright"></div>
 
       <script type="text/javascript">
         var selYear_s = window.document.getElementById("selYear_s");
@@ -59,6 +68,8 @@
         cancel.onclick = function() {
           alert("取消");
         }
+
+        copyright.innerHTML = "&copy; 2016-" + (new Date()).getFullYear() + " by zhanglintc";
       </script>
     </div>
   </body>

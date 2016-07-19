@@ -1,6 +1,10 @@
 body {
 }
 
+.line {
+    margin-top: 5px;
+}
+
 #center_board {
     width: 300px;
     margin: 0px auto;
@@ -8,4 +12,8 @@ body {
 
 #btn_board {
     margin-top: 20px;
+}
+
+#copyright {
+    margin-top: 40px;
 }
