@@ -3,7 +3,11 @@ require 'sinatra'
 set :bind, '0.0.0.0'
 
 get '/' do
-  "Hello sinatra !!!"
+  erb :index
+end
+
+get '/view' do
+  erb :view
 end
 
 get '/publish' do
@@ -12,5 +16,5 @@ end
 
 post '/publish' do
   puts "year: " + params[:year]
-  erb :publish
+  redirect 'view'
 end
