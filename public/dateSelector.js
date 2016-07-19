@@ -50,12 +50,13 @@ function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, s
     // 默认使用当前日期
     this.InitSelector(this.today_year, this.today_month, this.today_date, this.today_year, this.today_month, this.today_date);
 }
-// 增加一个最大年份的属性
+
 DateSelector.prototype.MinYear = (new Date()).getFullYear();
-// 增加一个最大年份的属性
 DateSelector.prototype.MaxYear = (new Date()).getFullYear() + 2;
-// 初始化年份
 DateSelector.prototype.InitYearSelect = function() {
+    this.selYear_s.options.length = 0;
+    this.selYear_e.options.length = 0;
+
     // 循环添加OPION元素到年份select对象中
     for(var i = this.MaxYear; i >= this.MinYear; i--) {
         // 新建一个OPTION对象
@@ -72,8 +73,11 @@ DateSelector.prototype.InitYearSelect = function() {
         this.selYear_e.appendChild(op_e);
     }
 }
-// 初始化月份
+
 DateSelector.prototype.InitMonthSelect = function() {
+    this.selMonth_s.options.length = 0;
+    this.selMonth_e.options.length = 0;
+
     // 循环添加OPION元素到月份select对象中
     for (var i = 1; i <= 12; i++) {
         // 新建一个OPTION对象
@@ -90,11 +94,13 @@ DateSelector.prototype.InitMonthSelect = function() {
         this.selMonth_e.appendChild(op_e);
     }
 }
+
 // 根据年份与月份获取当月的天数
 DateSelector.DaysInMonth = function(year, month) {
     var date = new Date(year, month, 0);
     return date.getDate();
 }
+
 // 初始化天数
 DateSelector.prototype.InitDateSelect = function() {
     // 使用parseInt函数获取当前的年份和月份
@@ -125,6 +131,7 @@ DateSelector.prototype.InitDateSelect = function() {
         this.selDate_e.appendChild(op_e);
     }
 }
+
 // 处理年份和月份onchange事件的方法，它获取事件来源对象（即selYear_s或selMonth_s）
 // 并调用它的Group对象（即DateSelector实例，请见构造函数）提供的InitDateSelect方法重新初始化天数
 // 参数e为event对象
@@ -135,6 +142,10 @@ DateSelector.Onchange = function(e) {
     dte = new Date(selector.Group.selYear_e.value, selector.Group.selMonth_e.value, selector.Group.selDate_e.value);
 
     if(dts > dte) {
+        selector.Group.InitYearSelect();
+        selector.Group.InitMonthSelect();
+        selector.Group.InitDateSelect();
+
         selector.Group.selYear_s.value = selector.Group.date_s.getFullYear();
         selector.Group.selMonth_s.value = selector.Group.date_s.getMonth() + 1;
         selector.Group.selDate_s.value = selector.Group.date_s.getDate();
@@ -145,7 +156,7 @@ DateSelector.Onchange = function(e) {
 
         alert("错误:　结束日期不能小于开始日期！");
 
-        // return;
+        return;
     }
     else {
         selector.Group.date_s.setFullYear(selector.Group.selYear_s.value);
@@ -191,14 +202,6 @@ DateSelector.Onchange = function(e) {
 }
 // 根据参数初始化下拉菜单选项
 DateSelector.prototype.InitSelector = function(year_s, month_s, date_s, year_e, month_e, date_e) {
-    // 由于外部是可以调用这个方法，因此我们在这里也要将selYear_s和selMonth_s的选项清空掉
-    // 另外因为InitDateSelect方法已经有清空天数下拉菜单，因此这里就不用重复工作了
-    this.selYear_s.options.length = 0;
-    this.selMonth_s.options.length = 0;
-
-    this.selYear_e.options.length = 0;
-    this.selMonth_e.options.length = 0;
-
     // 初始化年、月
     this.InitYearSelect();
     this.InitMonthSelect();
