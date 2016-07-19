@@ -64,11 +64,16 @@
 
         var preview = window.document.getElementById("preview");
 
-        new DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, selDate_e, preview);
+        var ds = new DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, selDate_e, preview);
 
         var submit = window.document.getElementById("submit");
         submit.onclick = function() {
-          post("/publish", {year: '1989'});
+          params = {
+            from: ds.date_s.getTime(),
+            to: ds.date_s.getTime(),
+            serial: parking_deck.value,
+          }
+          post("/publish", params);
         }
 
         var cancel = window.document.getElementById("cancel");

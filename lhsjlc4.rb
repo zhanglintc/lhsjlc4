@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'time'
 
 set :bind, '0.0.0.0'
 
@@ -15,6 +16,9 @@ get '/publish' do
 end
 
 post '/publish' do
-  puts "year: " + params[:year]
+  time_s = Time.at(params[:from].to_i / 1000)
+  time_e = Time.at(params[:to].to_i / 1000)
+  serial = params[:serial]
+
   redirect 'view'
 end
