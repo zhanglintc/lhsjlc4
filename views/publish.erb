@@ -43,12 +43,12 @@
         var selYear_s = window.document.getElementById("selYear_s");
         var selMonth_s = window.document.getElementById("selMonth_s");
         var selDate_s = window.document.getElementById("selDate_s");
-        new DateSelector(selYear_s, selMonth_s, selDate_s);
 
         var selYear_e = window.document.getElementById("selYear_e");
         var selMonth_e = window.document.getElementById("selMonth_e");
         var selDate_e = window.document.getElementById("selDate_e");
-        new DateSelector(selYear_e, selMonth_e, selDate_e);
+
+        new DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, selDate_e);
 
         var submit = window.document.getElementById("submit");
         submit.onclick = function() {
