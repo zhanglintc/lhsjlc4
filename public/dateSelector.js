@@ -3,8 +3,12 @@
 function MakePreviewStr(date_s, date_e) {
     preview = ""
     preview += (date_s.getMonth() + 1) + "/" + date_s.getDate()
-    preview += " ~ "
+    preview += " - "
     preview += (date_e.getMonth() + 1) + "/" + date_e.getDate()
+
+    days = parseInt((date_e - date_s) / 1000 / 3600 / 24) + 1
+
+    preview += ", 共" + days + "天"
 
     return preview;
 }
