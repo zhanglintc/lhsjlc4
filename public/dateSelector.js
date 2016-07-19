@@ -98,25 +98,30 @@ DateSelector.DaysInMonth = function(year, month) {
 // 初始化天数
 DateSelector.prototype.InitDateSelect = function() {
     // 使用parseInt函数获取当前的年份和月份
-    var year = parseInt(this.selYear_s.value);
-    var month = parseInt(this.selMonth_s.value);
+    var year_s = parseInt(this.selYear_s.value);
+    var month_s = parseInt(this.selMonth_s.value);
+    var year_e = parseInt(this.selYear_e.value);
+    var month_e = parseInt(this.selMonth_e.value);
+
     // 获取当月的天数
-    var daysInMonth = DateSelector.DaysInMonth(year, month);
+    var daysInMonth_s = DateSelector.DaysInMonth(year_s, month_s);
+    var daysInMonth_e = DateSelector.DaysInMonth(year_e, month_e);
+
     // 清空原有的选项
     this.selDate_s.options.length = 0;
+    this.selDate_e.options.length = 0;
+
     // 循环添加OPION元素到天数select对象中
-    for (var i = 1; i <= daysInMonth; i++) {
-        // 新建一个OPTION对象
+    for (var i = 1; i <= daysInMonth_s; i++) {
         var op_s = window.document.createElement("OPTION");
-        var op_e = window.document.createElement("OPTION");
-        // 设置OPTION对象的值
         op_s.value = i;
-        op_e.value = i;
-        // 设置OPTION对象的内容
         op_s.innerHTML = i;
-        op_e.innerHTML = i;
-        // 添加到天数select对象
         this.selDate_s.appendChild(op_s);
+    }
+    for (var i = 1; i <= daysInMonth_e; i++) {
+        var op_e = window.document.createElement("OPTION");
+        op_e.value = i;
+        op_e.innerHTML = i;
         this.selDate_e.appendChild(op_e);
     }
 }
@@ -140,7 +145,7 @@ DateSelector.Onchange = function(e) {
 
         alert("错误:　结束日期不能小于开始日期！");
 
-        return;
+        // return;
     }
     else {
         selector.Group.date_s.setFullYear(selector.Group.selYear_s.value);
