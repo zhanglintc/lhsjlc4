@@ -1,6 +1,10 @@
 body {
 }
 
+#title {
+    margin-bottom: 40px;
+}
+
 .line {
     margin-top: 5px;
 }
