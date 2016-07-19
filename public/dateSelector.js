@@ -99,7 +99,7 @@ DateSelector.prototype.InitDateSelect = function() {
 // 并调用它的Group对象（即DateSelector实例，请见构造函数）提供的InitDateSelect方法重新初始化天数
 // 参数e为event对象
 DateSelector.Onchange = function(e) {
-    var selector = window.document.all != null ? e.srcElement: e.target;
+    var selector = window.document.all != null ? e.srcElement : e.target;
     var date = selector.Group.selDate.value;
     selector.Group.InitDateSelect();
 
