@@ -41,6 +41,11 @@
         <input id="parking_deck" type="text">
       </div>
 
+      <div class="line">
+        空闲时间确认:
+        <span id="preview"></span>
+      </div>
+
       <div id="btn_board">
         <button id="submit">提交</button>
         <button id="cancel">取消</button>
@@ -57,7 +62,9 @@
         var selMonth_e = window.document.getElementById("selMonth_e");
         var selDate_e = window.document.getElementById("selDate_e");
 
-        new DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, selDate_e);
+        var preview = window.document.getElementById("preview");
+
+        new DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, selDate_e, preview);
 
         var submit = window.document.getElementById("submit");
         submit.onclick = function() {

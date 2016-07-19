@@ -1,6 +1,15 @@
 // Refer to: http://www.jb51.net/article/31509.htm
 
-function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, selDate_e) {
+function MakePreviewStr(date_s, date_e) {
+    preview = ""
+    preview += (date_s.getMonth() + 1) + "/" + date_s.getDate()
+    preview += " ~ "
+    preview += (date_e.getMonth() + 1) + "/" + date_e.getDate()
+
+    return preview;
+}
+
+function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, selDate_e, preview) {
     this.selYear_s = selYear_s;
     this.selMonth_s = selMonth_s;
     this.selDate_s = selDate_s;
@@ -8,6 +17,8 @@ function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, s
     this.selYear_e = selYear_e;
     this.selMonth_e = selMonth_e;
     this.selDate_e = selDate_e;
+
+    this.preview = preview;
 
     this.date_s = new Date();
     this.date_e = new Date();
@@ -20,6 +31,7 @@ function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, s
     this.selDate_e.Group = this;
     this.date_s.Group = this;
     this.date_e.Group = this;
+    this.preview.Group = this;
 
     this.today_year = this.date_s.getFullYear();
     this.today_month = this.date_s.getMonth() + 1;
@@ -49,6 +61,7 @@ function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, s
 
     // 默认使用当前日期
     this.InitSelector(this.today_year, this.today_month, this.today_date, this.today_year, this.today_month, this.today_date);
+    preview.innerHTML = MakePreviewStr(this.date_s, this.date_e);
 }
 
 DateSelector.prototype.MinYear = (new Date()).getFullYear();
@@ -199,6 +212,8 @@ DateSelector.Onchange = function(e) {
         selector.Group.selDate_e.value = daysInMonth_e;
     }
     selector.Group.date_e.setDate(selector.Group.selDate_e.value);
+
+    selector.Group.preview.innerHTML = MakePreviewStr(selector.Group.date_s, selector.Group.date_e);
 }
 // 根据参数初始化下拉菜单选项
 DateSelector.prototype.InitSelector = function(year_s, month_s, date_s, year_e, month_e, date_e) {
