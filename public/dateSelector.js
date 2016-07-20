@@ -96,7 +96,7 @@ function DateSelector() {
 }
 
 DateSelector.prototype.MinYear = (new Date()).getFullYear();
-DateSelector.prototype.MaxYear = (new Date()).getFullYear() + 2;
+DateSelector.prototype.MaxYear = (new Date()).getFullYear() + 1;
 DateSelector.prototype.InitYearSelect = function() {
     this.selYear_s.options.length = 0;
     this.selYear_e.options.length = 0;

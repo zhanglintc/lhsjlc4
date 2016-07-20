@@ -23,9 +23,9 @@
         <%dbMgr = DBManager.new%>
         <%dbMgr.view.each do |info|%>
         <li>
-        <%=info[0]%>: <%=Time.at(info[1]).strftime("%m")%>/<%=Time.at(info[1]).strftime("%d")%>
+        <b><%=info[0]%></b>: <%=Time.at(info[1]).strftime("%m/%d %H:00")%>
          - 
-        <%=Time.at(info[2]).strftime("%m")%>/<%=Time.at(info[2]).strftime("%d")%>
+        <%=Time.at(info[2]).strftime("%m/%d %H:00")%>
         </li>
         <%end%>
        </ul>
