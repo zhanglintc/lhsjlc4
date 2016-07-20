@@ -1,14 +1,19 @@
 // Refer to: http://www.jb51.net/article/31509.htm
 
-function MakePreviewStr(date_s, date_e) {
-    preview = ""
-    preview += (date_s.getMonth() + 1) + "/" + date_s.getDate()
-    preview += " - "
-    preview += (date_e.getMonth() + 1) + "/" + date_e.getDate()
+function MakePeriodCfmStr(date_s, date_e) {
+    preview = "";
+    preview += (date_s.getMonth() + 1) + "/" + date_s.getDate() + " " + date_s.getHours() + ":00";
+    preview += " - ";
+    preview += (date_e.getMonth() + 1) + "/" + date_e.getDate() + " " + date_e.getHours() + ":00";;
 
-    days = parseInt((date_e - date_s) / 1000 / 3600 / 24) + 1
+    return preview;
+}
 
-    preview += ", 共" + days + "天"
+function MakeTimeCfmStr(date_s, date_e) {
+    days = parseInt((date_e - date_s) / 1000 / 3600 / 24);
+    hours = parseInt((date_e - date_s) / 1000 / 3600 % 24);
+
+    preview = "共计 " + days + " 天 " + hours + " 小时";
 
     return preview;
 }
@@ -24,13 +29,16 @@ function DateSelector() {
     this.selDate_e = window.document.getElementById("selDate_e");
     this.selHour_e = window.document.getElementById("selHour_e");
 
-    this.preview = window.document.getElementById("preview");
+    this.period_cfm = window.document.getElementById("period_cfm");
+    this.time_cfm = window.document.getElementById("time_cfm");
 
     this.date_s = new Date();
     this.date_e = new Date();
 
-    this.date_s.setHours(7);
-    this.date_e.setHours(7);
+    this.date_e.setDate(this.date_e.getDate() + 1);
+
+    this.date_s.setHours(19);
+    this.date_e.setHours(19);
 
     this.selYear_s.Group = this;
     this.selMonth_s.Group = this;
@@ -42,12 +50,18 @@ function DateSelector() {
     this.selHour_e.Group = this;
     this.date_s.Group = this;
     this.date_e.Group = this;
-    this.preview.Group = this;
+    this.period_cfm.Group = this;
+    this.time_cfm.Group = this;
 
-    this.today_year = this.date_s.getFullYear();
-    this.today_month = this.date_s.getMonth() + 1;
-    this.today_date = this.date_s.getDate();
-    this.today_hour = this.date_s.getHours();
+    this.td_year = this.date_s.getFullYear();
+    this.td_month = this.date_s.getMonth() + 1;
+    this.td_date = this.date_s.getDate();
+    this.td_hour = this.date_s.getHours();
+
+    this.tm_year = this.date_e.getFullYear();
+    this.tm_month = this.date_e.getMonth() + 1;
+    this.tm_date = this.date_e.getDate();
+    this.tm_hour = this.date_e.getHours();
 
     // 给年份、月份下拉菜单添加处理onchange事件的函数
     // IE
@@ -76,8 +90,9 @@ function DateSelector() {
     }
 
     // 默认使用当前日期
-    this.InitSelector(this.today_year, this.today_month, this.today_date, this.today_hour, /*--*/ this.today_year, this.today_month, this.today_date, this.today_hour);
-    preview.innerHTML = MakePreviewStr(this.date_s, this.date_e);
+    this.InitSelector(this.td_year, this.td_month, this.td_date, this.td_hour, /*--*/ this.tm_year, this.tm_month, this.tm_date, this.tm_hour);
+    period_cfm.innerHTML = MakePeriodCfmStr(this.date_s, this.date_e);
+    time_cfm.innerHTML = MakeTimeCfmStr(this.date_s, this.date_e);
 }
 
 DateSelector.prototype.MinYear = (new Date()).getFullYear();
@@ -252,7 +267,8 @@ DateSelector.Onchange = function(e) {
     }
     selector.Group.date_e.setDate(selector.Group.selDate_e.value);
 
-    selector.Group.preview.innerHTML = MakePreviewStr(selector.Group.date_s, selector.Group.date_e);
+    selector.Group.period_cfm.innerHTML = MakePeriodCfmStr(selector.Group.date_s, selector.Group.date_e);
+    selector.Group.time_cfm.innerHTML = MakeTimeCfmStr(selector.Group.date_s, selector.Group.date_e);
 }
 // 根据参数初始化下拉菜单选项
 DateSelector.prototype.InitSelector = function(year_s, month_s, date_s, hour_s, year_e, month_e, date_e, hour_e) {
