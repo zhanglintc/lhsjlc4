@@ -20,11 +20,18 @@
       <h2 id="title">查看可用停车位信息</h2>
 
       <ul>
-        <li>C09: 7/19 - 7/23</li>
-        <li>B31: 7/20 - 7/21</li>
-      </ul>
+        <%dbMgr = DBManager.new%>
+        <%dbMgr.view.each do |info|%>
+        <li>
+        <%=info[0]%>: <%=Time.at(info[1]).strftime("%m")%>/<%=Time.at(info[1]).strftime("%d")%>
+         - 
+        <%=Time.at(info[2]).strftime("%m")%>/<%=Time.at(info[2]).strftime("%d")%>
+        </li>
+        <%end%>
+       </ul>
 
       <div id="copyright"></div>
+
       <script type="text/javascript">
         copyright.innerHTML = "&copy; 2016-" + (new Date()).getFullYear() + " by zhanglintc";
       </script>
