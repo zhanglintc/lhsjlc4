@@ -70,7 +70,7 @@
         submit.onclick = function() {
           params = {
             from: ds.date_s.getTime(),
-            to: ds.date_s.getTime(),
+            to: ds.date_e.getTime(),
             serial: parking_deck.value,
           }
           post("/publish", params);
