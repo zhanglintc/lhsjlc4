@@ -13,26 +13,33 @@ function MakePreviewStr(date_s, date_e) {
     return preview;
 }
 
-function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, selDate_e, preview) {
-    this.selYear_s = selYear_s;
-    this.selMonth_s = selMonth_s;
-    this.selDate_s = selDate_s;
+function DateSelector() {
+    this.selYear_s = window.document.getElementById("selYear_s");
+    this.selMonth_s = window.document.getElementById("selMonth_s");
+    this.selDate_s = window.document.getElementById("selDate_s");
+    this.selHour_s = window.document.getElementById("selHour_s");
 
-    this.selYear_e = selYear_e;
-    this.selMonth_e = selMonth_e;
-    this.selDate_e = selDate_e;
+    this.selYear_e = window.document.getElementById("selYear_e");
+    this.selMonth_e = window.document.getElementById("selMonth_e");
+    this.selDate_e = window.document.getElementById("selDate_e");
+    this.selHour_e = window.document.getElementById("selHour_e");
 
-    this.preview = preview;
+    this.preview = window.document.getElementById("preview");
 
     this.date_s = new Date();
     this.date_e = new Date();
 
+    this.date_s.setHours(7);
+    this.date_e.setHours(7);
+
     this.selYear_s.Group = this;
     this.selMonth_s.Group = this;
     this.selDate_s.Group = this;
+    this.selHour_s.Group = this;
     this.selYear_e.Group = this;
     this.selMonth_e.Group = this;
     this.selDate_e.Group = this;
+    this.selHour_e.Group = this;
     this.date_s.Group = this;
     this.date_e.Group = this;
     this.preview.Group = this;
@@ -40,6 +47,7 @@ function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, s
     this.today_year = this.date_s.getFullYear();
     this.today_month = this.date_s.getMonth() + 1;
     this.today_date = this.date_s.getDate();
+    this.today_hour = this.date_s.getHours();
 
     // 给年份、月份下拉菜单添加处理onchange事件的函数
     // IE
@@ -47,24 +55,28 @@ function DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, s
         this.selYear_s.attachEvent("onchange", DateSelector.Onchange);
         this.selMonth_s.attachEvent("onchange", DateSelector.Onchange);
         this.selDate_s.attachEvent("onchange", DateSelector.Onchange);
+        this.selHour_s.attachEvent("onchange", DateSelector.Onchange);
 
         this.selYear_e.attachEvent("onchange", DateSelector.Onchange);
         this.selMonth_e.attachEvent("onchange", DateSelector.Onchange);
         this.selDate_e.attachEvent("onchange", DateSelector.Onchange);
+        this.selHour_e.attachEvent("onchange", DateSelector.Onchange);
     }
     // Firefox
     else {
         this.selYear_s.addEventListener("change", DateSelector.Onchange, false);
         this.selMonth_s.addEventListener("change", DateSelector.Onchange, false);
         this.selDate_s.addEventListener("change", DateSelector.Onchange, false);
+        this.selHour_s.addEventListener("change", DateSelector.Onchange, false);
 
         this.selYear_e.addEventListener("change", DateSelector.Onchange, false);
         this.selMonth_e.addEventListener("change", DateSelector.Onchange, false);
         this.selDate_e.addEventListener("change", DateSelector.Onchange, false);
+        this.selHour_e.addEventListener("change", DateSelector.Onchange, false);
     }
 
     // 默认使用当前日期
-    this.InitSelector(this.today_year, this.today_month, this.today_date, this.today_year, this.today_month, this.today_date);
+    this.InitSelector(this.today_year, this.today_month, this.today_date, this.today_hour, /*--*/ this.today_year, this.today_month, this.today_date, this.today_hour);
     preview.innerHTML = MakePreviewStr(this.date_s, this.date_e);
 }
 
@@ -96,7 +108,7 @@ DateSelector.prototype.InitMonthSelect = function() {
     this.selMonth_e.options.length = 0;
 
     // 循环添加OPION元素到月份select对象中
-    for (var i = 1; i <= 12; i++) {
+    for(var i = 1; i <= 12; i++) {
         // 新建一个OPTION对象
         var op_s = window.document.createElement("OPTION");
         var op_e = window.document.createElement("OPTION");
@@ -135,17 +147,35 @@ DateSelector.prototype.InitDateSelect = function() {
     this.selDate_e.options.length = 0;
 
     // 循环添加OPION元素到天数select对象中
-    for (var i = 1; i <= daysInMonth_s; i++) {
+    for(var i = 1; i <= daysInMonth_s; i++) {
         var op_s = window.document.createElement("OPTION");
         op_s.value = i;
         op_s.innerHTML = i;
         this.selDate_s.appendChild(op_s);
     }
-    for (var i = 1; i <= daysInMonth_e; i++) {
+    for(var i = 1; i <= daysInMonth_e; i++) {
         var op_e = window.document.createElement("OPTION");
         op_e.value = i;
         op_e.innerHTML = i;
         this.selDate_e.appendChild(op_e);
+    }
+}
+
+DateSelector.prototype.InitHourSelect = function() {
+    this.selHour_s.options.length = 0;
+    this.selHour_e.options.length = 0;
+
+    for(var i = 0; i < 24; i++) {
+        var op_s = window.document.createElement("OPTION");
+        var op_e = window.document.createElement("OPTION");
+        op_s.value = i;
+        op_e.value = i;
+
+        op_s.innerHTML = i;
+        op_e.innerHTML = i;
+
+        this.selHour_s.appendChild(op_s);
+        this.selHour_e.appendChild(op_e);
     }
 }
 
@@ -155,21 +185,24 @@ DateSelector.prototype.InitDateSelect = function() {
 DateSelector.Onchange = function(e) {
     var selector = window.document.all != null ? e.srcElement : e.target;
 
-    dts = new Date(selector.Group.selYear_s.value, selector.Group.selMonth_s.value, selector.Group.selDate_s.value);
-    dte = new Date(selector.Group.selYear_e.value, selector.Group.selMonth_e.value, selector.Group.selDate_e.value);
+    dts = new Date(selector.Group.selYear_s.value, selector.Group.selMonth_s.value, selector.Group.selDate_s.value, selector.Group.selHour_s.value);
+    dte = new Date(selector.Group.selYear_e.value, selector.Group.selMonth_e.value, selector.Group.selDate_e.value, selector.Group.selHour_e.value);
 
     if(dts > dte) {
         selector.Group.InitYearSelect();
         selector.Group.InitMonthSelect();
         selector.Group.InitDateSelect();
+        selector.Group.InitHourSelect();
 
         selector.Group.selYear_s.value = selector.Group.date_s.getFullYear();
         selector.Group.selMonth_s.value = selector.Group.date_s.getMonth() + 1;
         selector.Group.selDate_s.value = selector.Group.date_s.getDate();
+        selector.Group.selHour_s.value = selector.Group.date_s.getHours();
 
         selector.Group.selYear_e.value = selector.Group.date_e.getFullYear();
         selector.Group.selMonth_e.value = selector.Group.date_e.getMonth() + 1;
         selector.Group.selDate_e.value = selector.Group.date_e.getDate();
+        selector.Group.selHour_e.value = selector.Group.date_e.getHours();
 
         alert("错误:　结束日期不能小于开始日期！");
 
@@ -179,10 +212,12 @@ DateSelector.Onchange = function(e) {
         selector.Group.date_s.setFullYear(selector.Group.selYear_s.value);
         selector.Group.date_s.setMonth(selector.Group.selMonth_s.value - 1);
         selector.Group.date_s.setDate(selector.Group.selDate_s.value);
+        selector.Group.date_s.setHours(selector.Group.selHour_s.value);
 
         selector.Group.date_e.setFullYear(selector.Group.selYear_e.value);
         selector.Group.date_e.setMonth(selector.Group.selMonth_e.value - 1);
         selector.Group.date_e.setDate(selector.Group.selDate_e.value);
+        selector.Group.date_e.setHours(selector.Group.selHour_e.value);
     }
 
     var date_s = selector.Group.selDate_s.value;
@@ -220,7 +255,7 @@ DateSelector.Onchange = function(e) {
     selector.Group.preview.innerHTML = MakePreviewStr(selector.Group.date_s, selector.Group.date_e);
 }
 // 根据参数初始化下拉菜单选项
-DateSelector.prototype.InitSelector = function(year_s, month_s, date_s, year_e, month_e, date_e) {
+DateSelector.prototype.InitSelector = function(year_s, month_s, date_s, hour_s, year_e, month_e, date_e, hour_e) {
     // 初始化年、月
     this.InitYearSelect();
     this.InitMonthSelect();
@@ -238,4 +273,11 @@ DateSelector.prototype.InitSelector = function(year_s, month_s, date_s, year_e, 
     // 设置天数初始值
     this.selDate_s.value = date_s;
     this.selDate_e.value = date_e;
+
+    // 初始化小时
+    this.InitHourSelect();
+
+    // 设置小时初始值
+    this.selHour_s.value = hour_s;
+    this.selHour_e.value = hour_e;
 }

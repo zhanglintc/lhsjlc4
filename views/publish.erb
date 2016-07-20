@@ -23,26 +23,28 @@
       <h2 id="title">停车位发布</h2>
 
       <div class="line">
-        空闲开始日期:
+        开始时间:
         <select id="selYear_s"></select>
         <select id="selMonth_s"></select>
         <select id="selDate_s"></select>
+        <select id="selHour_s"></select>
       </div>
 
       <div class="line">
-        空闲结束日期:
+        结束时间:
         <select id="selYear_e"></select>
         <select id="selMonth_e"></select>
         <select id="selDate_e"></select>
+        <select id="selHour_e"></select>
       </div>
 
       <div class="line">
-        空闲车位编号:
+        车位编号:
         <input id="parking_deck" type="text">
       </div>
 
       <div class="line">
-        空闲时间确认:
+        时间确认:
         <span id="preview"></span>
       </div>
 
@@ -54,17 +56,7 @@
       <div id="copyright"></div>
 
       <script type="text/javascript">
-        var selYear_s = window.document.getElementById("selYear_s");
-        var selMonth_s = window.document.getElementById("selMonth_s");
-        var selDate_s = window.document.getElementById("selDate_s");
-
-        var selYear_e = window.document.getElementById("selYear_e");
-        var selMonth_e = window.document.getElementById("selMonth_e");
-        var selDate_e = window.document.getElementById("selDate_e");
-
-        var preview = window.document.getElementById("preview");
-
-        var ds = new DateSelector(selYear_s, selMonth_s, selDate_s, selYear_e, selMonth_e, selDate_e, preview);
+        var ds = new DateSelector();
 
         var submit = window.document.getElementById("submit");
         submit.onclick = function() {
