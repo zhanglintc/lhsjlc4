@@ -19,16 +19,14 @@
     <div id="center_board">
       <h2 id="title">查看可用停车位信息</h2>
 
-      <ul>
-        <%dbMgr = DBManager.new%>
-        <%dbMgr.view.each do |info|%>
-        <li>
-        <b><%=info[0]%></b>: <%=Time.at(info[1]).strftime("%m/%d %H:00")%>
-         - 
-        <%=Time.at(info[2]).strftime("%m/%d %H:00")%>
-        </li>
-        <%end%>
-       </ul>
+      <%dbMgr = DBManager.new%>
+      <%dbMgr.view.each do |info|%>
+      <li>
+      <b><%=info[0]%></b>: <%=Time.at(info[1]).strftime("%m/%d %H:00")%>
+       - 
+      <%=Time.at(info[2]).strftime("%m/%d %H:00")%>
+      </li>
+      <%end%>
 
       <div id="copyright"></div>
 
