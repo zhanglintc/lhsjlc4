@@ -12,18 +12,22 @@
 
     <link rel="stylesheet" type="text/css" href="style.css">
 
-    <title>welcome</title>
+    <title>停车位查看</title>
   </head>
 
   <body>
     <div id="center_board">
-      <h2 id="title">Hello Sinatra !!!</h2>
+      <h2 id="title">当前可用停车位信息</h2>
 
-      <ul>
-        <li><a href="/publish">publish</a></li>
-        <li><a href="/view">view</a></li>
-        <li><a href="/current">current</a></li>
-      </ul>
+      <%dbMgr = DBManager.new%>
+      <%dbMgr.view.each do |info|%>
+      <%next unless (info[1] <= Time.now.to_i and Time.now.to_i <= info[2])%>
+      <li>
+      <b><%=info[0]%></b>: 
+      <%=Time.at(info[2]).strftime("%m/%d %H:00")%>到期,
+      剩余<%=(info[2] - Time.now.to_i)/3600%>小时
+      </li>
+      <%end%>
 
       <div id="copyright"></div>
 

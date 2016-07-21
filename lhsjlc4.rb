@@ -16,6 +16,10 @@ get '/view' do
   erb :view
 end
 
+get '/current' do
+  erb :current
+end
+
 get '/publish' do
   erb :publish
 end
