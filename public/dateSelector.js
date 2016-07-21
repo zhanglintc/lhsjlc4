@@ -37,8 +37,8 @@ function DateSelector() {
 
     this.date_e.setDate(this.date_e.getDate() + 1);
 
-    this.date_s.setHours(19);
-    this.date_e.setHours(19);
+    this.date_s.setHours(12);
+    this.date_e.setHours(12);
 
     this.selYear_s.Group = this;
     this.selMonth_s.Group = this;
