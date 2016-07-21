@@ -66,11 +66,11 @@
 
         var submit = window.document.getElementById("submit");
         submit.onclick = function() {
-		  parking_deck.value = parking_deck.value.toUpperCase();
-		  if(!SERIAL_INFO.data.contains(parking_deck.value)) {
-		    alert("该车位不存在，请重新输入！");
-			reture;
-		  }
+          parking_deck.value = parking_deck.value.toUpperCase();
+          if(!SERIAL_INFO.data.contains(parking_deck.value)) {
+            alert("该车位不存在，请重新输入！");
+            reture;
+          }
           params = {
             from: ds.date_s.getTime(),
             to: ds.date_e.getTime(),
