@@ -39,3 +39,15 @@ function getRadioValue(radio) {
         }
     }
 }
+
+function setParking_DeckPlaceholder() {
+    if(getRadioValue("area") == "A") {
+        parking_deck.placeholder = "A区范围: 001 - " + SERIAL_INFO.data[0].length;
+    }
+    else if(getRadioValue("area") == "B") {
+        parking_deck.placeholder = "B区范围: 001 - " + SERIAL_INFO.data[1].length;
+    }
+    else {
+        parking_deck.placeholder = "C区范围: 001 - " + SERIAL_INFO.data[2].length;
+    }
+}

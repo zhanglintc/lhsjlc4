@@ -41,14 +41,14 @@
 
       <div class="line">
         车位区域:
-        <input type="radio" name="area" value="A" checked="checked">A区
-        <input type="radio" name="area" value="B">B区
-        <input type="radio" name="area" value="C">C区
+        <input type="radio" name="area" onchange="setParking_DeckPlaceholder()" value="A" checked="checked">A区
+        <input type="radio" name="area" onchange="setParking_DeckPlaceholder()" value="B">B区
+        <input type="radio" name="area" onchange="setParking_DeckPlaceholder()" value="C">C区
       </div>
 
       <div class="line">
         车位编号:
-        <input id="parking_deck" type="tel" maxlength="3" placeholder="车位号例如: 031">
+        <input id="parking_deck" type="tel" maxlength="3">
       </div>
 
       <div class="line">
@@ -69,17 +69,24 @@
       <div id="copyright"></div>
 
       <script type="text/javascript">
-        var ds = new DateSelector();
+        setParking_DeckPlaceholder();
 
         var submit = window.document.getElementById("submit");
+        var cancel = window.document.getElementById("cancel");
+        var ds = new DateSelector();
+
         submit.onclick = function() {
           var serial_num = getRadioValue("area") + parking_deck.value;
 
-          if(!SERIAL_INFO.data.contains(serial_num)) {
-            alert("该车位不存在，请重新输入!!!");
+          if( !SERIAL_INFO.data[0].contains(serial_num) &&
+              !SERIAL_INFO.data[1].contains(serial_num) &&
+              !SERIAL_INFO.data[2].contains(serial_num)
+          ) {
+            alert("车位 " + serial_num + " 不存在，请重新输入!!!");
             return;
           }
 
+          
           params = {
             from: ds.date_s.getTime(),
             to: ds.date_e.getTime(),
@@ -89,7 +96,6 @@
           post("/publish", params);
         }
 
-        var cancel = window.document.getElementById("cancel");
         cancel.onclick = function() {
           alert("取消");
         }
