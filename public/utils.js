@@ -1,5 +1,15 @@
 // Provide tool functions
 
+Array.prototype.contains = function (obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
 var post = function(url, params) {
     var form = document.createElement("form");
 
