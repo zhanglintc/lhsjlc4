@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" type="text/css" href="style.css">
 
+    <script type="text/javascript" src="utils.js"></script>
+
     <title>停车位查看</title>
   </head>
 
@@ -25,7 +27,10 @@
       <b><%=info[0]%></b>: <%=Time.at(info[1]).strftime("%m/%d %H:00")%>
        - 
       <%=Time.at(info[2]).strftime("%m/%d %H:00")%>
-      <a href="javascript:;" onclick="alert('delete')">删除</a>
+      <a href="javascript:;" onclick="post('/delete', {serialHTML: this.innerHTML})">
+        删除
+        <span style=display:none><%=info[0]%></span>
+      </a>
       </li>
       <%end%>
 

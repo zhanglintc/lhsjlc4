@@ -31,12 +31,13 @@ class DBManager
   #   @db.execute "update AVAILABLE_INFO set memTimes = #{row[2]}, remindTime = #{row[3]}, remindTimeStr = '#{row[4]}' where wordID = '#{row[5]}'" if not COMM::REVERSE_MODE
   # end
 
-  # def deleteDB serial
-  #   found = @db.execute("select * from AVAILABLE_INFO where serial = #{serial}").size != 0 ? true : false
-  #   @db.execute "delete from AVAILABLE_INFO where serial = #{serial}"
+  def delete serial
+    puts serial.class
+    found = @db.execute("select * from AVAILABLE_INFO where serial = '#{serial}'").size != 0 ? true : false
+    @db.execute "delete from AVAILABLE_INFO where serial = '#{serial}'"
 
-  #   return found
-  # end
+    return found
+  end
 
   def view
     @db.execute "select * from AVAILABLE_INFO"

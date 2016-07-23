@@ -24,6 +24,17 @@ get '/publish' do
   erb :publish
 end
 
+post '/delete' do
+  params[:serialHTML] =~ /\>(.*)\<\/span\>/
+  serial = $1
+
+  dbMgr = DBManager.new
+  dbMgr.delete serial
+  dbMgr.closeDB
+
+  redirect :view
+end
+
 post '/publish' do
   time_s = params[:from].to_i / 1000
   time_e = params[:to].to_i / 1000
