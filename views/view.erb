@@ -27,7 +27,7 @@
       <b><%=info[0]%></b>: <%=Time.at(info[1]).strftime("%m/%d %H:00")%>
        - 
       <%=Time.at(info[2]).strftime("%m/%d %H:00")%>
-      <a href="javascript:;" onclick="if(confirm('确定要删除该条信息?'))post('/delete', {serialHTML: this.innerHTML})">
+      <a href="javascript:;" onclick="if(confirm('删除操作不可恢复, 请勿删除他人发布信息!!!\n\n确定要删除该条信息?'))post('/delete', {serialHTML: this.innerHTML})">
         删除
         <span style=display:none><%=info[0]%></span>
       </a>

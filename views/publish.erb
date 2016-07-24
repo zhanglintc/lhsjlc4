@@ -78,6 +78,11 @@
         submit.onclick = function() {
           var serial_num = getRadioValue("area") + parking_deck.value;
 
+          if(parking_deck.value.length < 3) {
+            alert("请输入完整3位数字车位编号");
+            return;
+          }
+
           if( !SERIAL_INFO.data[0].contains(serial_num) &&
               !SERIAL_INFO.data[1].contains(serial_num) &&
               !SERIAL_INFO.data[2].contains(serial_num)
