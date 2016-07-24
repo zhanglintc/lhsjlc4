@@ -2,9 +2,9 @@
 
 function MakePeriodCfmStr(date_s, date_e) {
     preview = "";
-    preview += (date_s.getMonth() + 1) + "/" + date_s.getDate() + " " + date_s.getHours() + ":00";
+    preview += (date_s.getMonth() + 1) + "月" + date_s.getDate() + "日" + date_s.getHours() + "时";
     preview += " - ";
-    preview += (date_e.getMonth() + 1) + "/" + date_e.getDate() + " " + date_e.getHours() + ":00";;
+    preview += (date_e.getMonth() + 1) + "月" + date_e.getDate() + "日" + date_e.getHours() + "时";;
 
     return preview;
 }
