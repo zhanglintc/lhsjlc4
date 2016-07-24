@@ -32,7 +32,6 @@ class DBManager
   # end
 
   def delete serial
-    puts serial.class
     found = @db.execute("select * from AVAILABLE_INFO where serial = '#{serial}'").size != 0 ? true : false
     @db.execute "delete from AVAILABLE_INFO where serial = '#{serial}'"
 
