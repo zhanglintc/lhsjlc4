@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="refresh" content="2; URL=/view">
+    <meta http-equiv="refresh" content="3; URL=/view">
 
     <!-- 可能是适配移动端用的 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,20 @@
 
   <body>
     <div id="center_board" align="center">
-      <p>删除成功, 即将跳转到停车位查看页面</p>
+      <p id="txt"></p>
+
+      <script type="text/javascript">
+          var times = 3;
+          setTxt();
+
+        function setTxt() {
+          if(times == 0) return;
+
+          txt.innerText = "删除成功, " + times + "秒后跳转到停车位查看页面...";
+          times -= 1;
+          window.setTimeout("setTxt()", 1000);
+        }
+      </script>
     </div>
   </body>
 </html>
