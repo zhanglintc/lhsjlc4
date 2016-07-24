@@ -42,7 +42,7 @@ post '/delete' do
   dbMgr.delete serial
   dbMgr.closeDB
 
-  redirect :view
+  erb :delete_jump
 end
 
 post '/publish' do
@@ -56,5 +56,5 @@ post '/publish' do
   dbMgr.publish info
   dbMgr.closeDB
 
-  redirect 'view'
+  erb :publish_jump
 end
