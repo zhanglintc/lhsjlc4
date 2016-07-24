@@ -23,6 +23,7 @@
 
       <%dbMgr = DBManager.new%>
       <%dbMgr.view.each do |info|%>
+      <%next unless Time.now.to_i <= info[2]%>
       <li>
       <b><%=info[0]%></b>:
       <br/>
@@ -37,6 +38,7 @@
       </a>
       </li>
       <%end%>
+      <%dbMgr.closeDB%>
 
       <div id="copyright"></div>
 

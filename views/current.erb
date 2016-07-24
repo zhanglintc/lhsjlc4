@@ -28,6 +28,7 @@
       剩余<%=(info[2] - Time.now.to_i)/3600%>小时
       </li>
       <%end%>
+      <%dbMgr.closeDB%>
 
       <div id="copyright"></div>
 
