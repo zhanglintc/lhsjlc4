@@ -8,7 +8,7 @@ require './db.rb'
 
 set :bind, '0.0.0.0'
 
-DEV_MODE = true
+DEV_MODE = false
 
 def wechat_browser?
   return request.user_agent.include? "MicroMessenger"
