@@ -39,6 +39,12 @@ function DateSelector() {
 
     this.date_s.setHours(12);
     this.date_e.setHours(12);
+    this.date_s.setMinutes(0);
+    this.date_e.setMinutes(0);
+    this.date_s.setSeconds(0);
+    this.date_e.setSeconds(0);
+    this.date_s.setMilliseconds(0);
+    this.date_e.setMilliseconds(0);
 
     this.selYear_s.Group = this;
     this.selMonth_s.Group = this;
@@ -200,41 +206,72 @@ DateSelector.prototype.InitHourSelect = function() {
 DateSelector.Onchange = function(e) {
     var selector = window.document.all != null ? e.srcElement : e.target;
 
-    dts = new Date(selector.Group.selYear_s.value, selector.Group.selMonth_s.value, selector.Group.selDate_s.value, selector.Group.selHour_s.value);
-    dte = new Date(selector.Group.selYear_e.value, selector.Group.selMonth_e.value, selector.Group.selDate_e.value, selector.Group.selHour_e.value);
+    var dts = new Date(selector.Group.selYear_s.value, selector.Group.selMonth_s.value - 1, selector.Group.selDate_s.value, selector.Group.selHour_s.value);
+    var dte = new Date(selector.Group.selYear_e.value, selector.Group.selMonth_e.value - 1, selector.Group.selDate_e.value, selector.Group.selHour_e.value);
 
-    if(dts > dte) {
-        selector.Group.InitYearSelect();
-        selector.Group.InitMonthSelect();
-        selector.Group.InitDateSelect();
-        selector.Group.InitHourSelect();
+    // 如果控件中的开始时间不等于保存的时间, 则设置为可以联动修改时间
+    var linkage = dts.getTime() != selector.Group.date_s.getTime() ? true : false
 
-        selector.Group.selYear_s.value = selector.Group.date_s.getFullYear();
-        selector.Group.selMonth_s.value = selector.Group.date_s.getMonth() + 1;
-        selector.Group.selDate_s.value = selector.Group.date_s.getDate();
-        selector.Group.selHour_s.value = selector.Group.date_s.getHours();
+    // 开始日期大于或等于结束日期
+    if(dts >= dte) {
+        // 需要联动修改
+        if(linkage) {
+            DateAdjust(selector);
+            UpdateStoredTime(selector);
 
-        selector.Group.selYear_e.value = selector.Group.date_e.getFullYear();
-        selector.Group.selMonth_e.value = selector.Group.date_e.getMonth() + 1;
-        selector.Group.selDate_e.value = selector.Group.date_e.getDate();
-        selector.Group.selHour_e.value = selector.Group.date_e.getHours();
+            // 默认结束日期比开始日期晚一天
+            dt = new Date(selector.Group.date_s.getTime() + 24 * 3600 * 1000);
 
-        alert("错误:　结束日期不能小于开始日期！");
+            selector.Group.selYear_e.value = dt.getFullYear();
+            selector.Group.selMonth_e.value = dt.getMonth() + 1;
+            selector.Group.selDate_e.value = dt.getDate();
+            selector.Group.selHour_e.value = dt.getHours();
+        }
 
-        return;
+        // 无需联动修改, 直接提示出错, 并设置为原值
+        else {
+            selector.Group.InitYearSelect();
+            selector.Group.InitMonthSelect();
+            selector.Group.InitDateSelect();
+            selector.Group.InitHourSelect();
+
+            selector.Group.selYear_s.value = selector.Group.date_s.getFullYear();
+            selector.Group.selMonth_s.value = selector.Group.date_s.getMonth() + 1;
+            selector.Group.selDate_s.value = selector.Group.date_s.getDate();
+            selector.Group.selHour_s.value = selector.Group.date_s.getHours();
+
+            selector.Group.selYear_e.value = selector.Group.date_e.getFullYear();
+            selector.Group.selMonth_e.value = selector.Group.date_e.getMonth() + 1;
+            selector.Group.selDate_e.value = selector.Group.date_e.getDate();
+            selector.Group.selHour_e.value = selector.Group.date_e.getHours();
+
+            alert("结束日期必须大于开始日期!!!");
+
+            return;
+        }
     }
-    else {
-        selector.Group.date_s.setFullYear(selector.Group.selYear_s.value);
-        selector.Group.date_s.setMonth(selector.Group.selMonth_s.value - 1);
-        selector.Group.date_s.setDate(selector.Group.selDate_s.value);
-        selector.Group.date_s.setHours(selector.Group.selHour_s.value);
 
-        selector.Group.date_e.setFullYear(selector.Group.selYear_e.value);
-        selector.Group.date_e.setMonth(selector.Group.selMonth_e.value - 1);
-        selector.Group.date_e.setDate(selector.Group.selDate_e.value);
-        selector.Group.date_e.setHours(selector.Group.selHour_e.value);
-    }
+    DateAdjust(selector);
+    UpdateStoredTime(selector);
 
+    selector.Group.period_cfm.innerHTML = MakePeriodCfmStr(selector.Group.date_s, selector.Group.date_e);
+    selector.Group.time_cfm.innerHTML = MakeTimeCfmStr(selector.Group.date_s, selector.Group.date_e);
+}
+
+function UpdateStoredTime(selector) {
+    selector.Group.date_s.setFullYear(selector.Group.selYear_s.value);
+    selector.Group.date_s.setMonth(selector.Group.selMonth_s.value - 1);
+    selector.Group.date_s.setDate(selector.Group.selDate_s.value);
+    selector.Group.date_s.setHours(selector.Group.selHour_s.value);
+
+    selector.Group.date_e.setFullYear(selector.Group.selYear_e.value);
+    selector.Group.date_e.setMonth(selector.Group.selMonth_e.value - 1);
+    selector.Group.date_e.setDate(selector.Group.selDate_e.value);
+    selector.Group.date_e.setHours(selector.Group.selHour_e.value);
+}
+
+// 微调天数
+function DateAdjust(selector) {
     var date_s = selector.Group.selDate_s.value;
     var date_e = selector.Group.selDate_e.value;
 
@@ -249,7 +286,7 @@ DateSelector.Onchange = function(e) {
     var daysInMonth_s = (new Date(year_s, month_s, 0)).getDate();
     var daysInMonth_e = (new Date(year_e, month_e, 0)).getDate();
 
-    // 开始日期微调
+    // 微调开始日期
     if(date_s < daysInMonth_s) {
         selector.Group.selDate_s.value = date_s;
     }
@@ -258,7 +295,7 @@ DateSelector.Onchange = function(e) {
     }
     selector.Group.date_s.setDate(selector.Group.selDate_s.value);
 
-    // 结束日期微调
+    // 微调结束日期
     if(date_e < daysInMonth_e) {
         selector.Group.selDate_e.value = date_e;
     }
@@ -266,10 +303,8 @@ DateSelector.Onchange = function(e) {
         selector.Group.selDate_e.value = daysInMonth_e;
     }
     selector.Group.date_e.setDate(selector.Group.selDate_e.value);
-
-    selector.Group.period_cfm.innerHTML = MakePeriodCfmStr(selector.Group.date_s, selector.Group.date_e);
-    selector.Group.time_cfm.innerHTML = MakeTimeCfmStr(selector.Group.date_s, selector.Group.date_e);
 }
+
 // 根据参数初始化下拉菜单选项
 DateSelector.prototype.InitSelector = function(year_s, month_s, date_s, hour_s, year_e, month_e, date_e, hour_e) {
     // 初始化年、月
