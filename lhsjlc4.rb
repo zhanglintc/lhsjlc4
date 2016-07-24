@@ -15,22 +15,22 @@ def wechat_browser?
 end
 
 get '/' do
-  return "只允许微信访问" if not wechat_browser? and not DEV_MODE
-  erb :index
+  return erb :_403 if not wechat_browser? and not DEV_MODE
+  return erb :index
 end
 
 get '/view' do
-  return "只允许微信访问" if not wechat_browser? and not DEV_MODE
+  return erb :_403 if not wechat_browser? and not DEV_MODE
   erb :view
 end
 
 get '/current' do
-  return "只允许微信访问" if not wechat_browser? and not DEV_MODE
+  return erb :_403 if not wechat_browser? and not DEV_MODE
   erb :current
 end
 
 get '/publish' do
-  return "只允许微信访问" if not wechat_browser? and not DEV_MODE
+  return erb :_403 if not wechat_browser? and not DEV_MODE
   erb :publish
 end
 
