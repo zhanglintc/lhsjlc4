@@ -25,7 +25,7 @@
           setTxt();
 
         function setTxt() {
-          if(times == 0) return;
+          if(times < 0) return;
 
           txt.innerText = "删除成功, " + times + "秒后跳转到停车位查看页面...";
           times -= 1;

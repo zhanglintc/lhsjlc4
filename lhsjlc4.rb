@@ -19,6 +19,14 @@ get '/' do
   return erb :index
 end
 
+get '/publish_jump' do
+  erb :publish_jump
+end
+
+get '/delete_jump' do
+  erb :delete_jump
+end
+
 get '/view' do
   return erb :_403 if not wechat_browser? and not DEV_MODE
   erb :view
@@ -42,7 +50,7 @@ post '/delete' do
   dbMgr.delete serial
   dbMgr.closeDB
 
-  erb :delete_jump
+  redirect :delete_jump
 end
 
 post '/publish' do
@@ -56,5 +64,5 @@ post '/publish' do
   dbMgr.publish info
   dbMgr.closeDB
 
-  erb :publish_jump
+  redirect :publish_jump
 end
