@@ -3,10 +3,14 @@
 
 require 'sinatra'
 require 'time'
+require 'json'
 
 require './db.rb'
 
+setting_file = "preferences.json"
+
 set :bind, '0.0.0.0'
+set :port, JSON.parse(File.read(setting_file))["port"] if File.exist? setting_file
 
 DEV_MODE = false
 
