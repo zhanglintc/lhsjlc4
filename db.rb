@@ -12,7 +12,7 @@ class DBManager
   """
 
   def initialize
-    @db = SQLite3::Database.new "./lhsjlc4.db"
+    @db = SQLite3::Database.new "./lhsjlc4.sqlite3"
     createDB
   end
 
