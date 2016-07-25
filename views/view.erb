@@ -21,6 +21,12 @@
     <div id="center_board">
       <h2 id="title">查看可用停车位信息</h2>
 
+      <%
+      # info[0]: serial
+      # info[1]: start
+      # info[2]: end
+      %>
+
       <%dbMgr = DBManager.new%>
       <%dbMgr.view.each do |info|%>
       <%next unless Time.now.to_i <= info[2]%>
@@ -32,9 +38,8 @@
       -
       <%=Time.at(info[2]).strftime("%m月%d日%H时")%>
       &nbsp;
-      <a href="javascript:;" onclick="if(confirm('信息删除操作不可恢复,\n请勿删除他人发布信息!\n\n确定要删除该条信息?'))post('/delete', {serialHTML: this.innerHTML})">
+      <a href="javascript:if(confirm('信息删除操作不可恢复,\n请勿删除他人发布信息!\n\n确定要删除该条信息?'))post('/delete', {serial: '<%=info[0]%>'});">
         删除<br/><br/>
-        <span style=display:none><%=info[0]%></span>
       </a>
       </li>
       <%end%>

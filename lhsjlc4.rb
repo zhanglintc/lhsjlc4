@@ -43,8 +43,7 @@ get '/publish' do
 end
 
 post '/delete' do
-  params[:serialHTML] =~ /\>(\w\d\d\d)\<\/span\>/
-  serial = $1
+  serial = params[:serial]
 
   dbMgr = DBManager.new
   dbMgr.delete serial
