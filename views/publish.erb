@@ -63,7 +63,6 @@
 
       <div id="btn_board">
         <button id="submit">提交</button>
-        <button id="cancel">取消</button>
       </div>
 
       <div id="copyright"></div>
@@ -99,10 +98,6 @@
           }
 
           post("/publish", params);
-        }
-
-        cancel.onclick = function() {
-          alert("取消");
         }
 
         copyright.innerHTML = "&copy; 2016-" + (new Date()).getFullYear() + " by zhanglintc";

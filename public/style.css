@@ -18,6 +18,10 @@ body {
     margin-top: 20px;
 }
 
+#submit {
+    font-size: 16px;
+}
+
 #copyright {
     margin-top: 40px;
 }
