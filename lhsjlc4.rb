@@ -15,7 +15,7 @@ def wechat_browser?
 end
 
 get '/' do
-  return erb :_403 if not wechat_browser? and not DEV_MODE
+  return erb :_403 unless wechat_browser? or DEV_MODE
   return erb :index
 end
 
@@ -28,17 +28,17 @@ get '/delete_jump' do
 end
 
 get '/view' do
-  return erb :_403 if not wechat_browser? and not DEV_MODE
+  return erb :_403 unless wechat_browser? or DEV_MODE
   erb :view
 end
 
 get '/current' do
-  return erb :_403 if not wechat_browser? and not DEV_MODE
+  return erb :_403 unless wechat_browser? or DEV_MODE
   erb :current
 end
 
 get '/publish' do
-  return erb :_403 if not wechat_browser? and not DEV_MODE
+  return erb :_403 unless wechat_browser? or DEV_MODE
   erb :publish
 end
 
