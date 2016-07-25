@@ -10,6 +10,8 @@ require './db.rb'
 setting_file = "preferences.json"
 
 set :bind, '0.0.0.0'
+
+# please set port as 4496 in master branch
 set :port, JSON.parse(File.read(setting_file))["port"] if File.exist? setting_file
 
 DEV_MODE = false
