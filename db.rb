@@ -24,6 +24,7 @@ class DBManager
   end
 
   def publish info
+    @db.execute "update AVAILABLE_INFO set start = #{info[1]}, end = #{info[2]} where serial = '#{info[0]}'"
     @db.execute "insert into AVAILABLE_INFO values(?, ?, ?)", info
   end
 
